@@ -406,6 +406,12 @@ else
     mysql -u root -e "CREATE USER 'zmuser'@'localhost' IDENTIFIED BY 'zmpass';"
     mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'zmuser'@'localhost';"
 
+    #edited https://techies-world.com/mysql-error-authentication-requires-secure-connection/
+    mysql -u root -e "ALTER USER 'zmuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zmpass';"
+
+    mysql -u root -e "CREATE USER 'zmuser'@'localhost' IDENTIFIED BY 'zmpass';"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'zmuser'@'localhost';"
+
     if [ "$(zm_db_exists)" -eq "0" ]; then
         echo " * First run of mysql in the container, creating ZoneMinder dB."
         mysql -u root < $ZMCREATE
@@ -422,6 +428,11 @@ start_http
 
 # Start ZoneMinder
 start_zoneminder
+
+#add permission for  /dev/dri/
+if [ -e /dev/dri/renderD128 ]; then
+    groupadd -g "$(stat -c %g /dev/dri/renderD128)" render && usermod -a -G render www-data
+fi
 
 # tail logs while running
 tail -F /var/log/zoneminder/zm*.log /var/log/zm/zm*.log
