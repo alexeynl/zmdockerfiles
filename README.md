@@ -1,8 +1,7 @@
 # zmdockerfiles
-I don't find any zoneminder docker based on fresh LTS Ubuntu 22.04 Jammy Jellyfish. So i built it for myself.
+I don't find any zoneminder docker based on fresh LTS Ubuntu 22.04 Jammy Jellyfish.  Latest official image on docker hub is based on not fresh Ubuntu 18.04. So i built it for myself.
 
 This image is based on official dockerfile https://github.com/ZoneMinder/zmdockerfiles/tree/master/release/ubuntu20.04 and fixed some problems i had encoutered.
-
 ## Usage
 
 **Note:** Detailled usage instructions for the development and release Dockerfiles are contained within each Dockerfile.
